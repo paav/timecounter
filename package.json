@@ -1,0 +1,16 @@
+{
+  "name": "timecounter",
+  "version": "0.0.1",
+  "main": "index.html",
+  "description": "Counts and keeps in history per task time",
+  "window": {
+    "width": 400,
+    "height": 520,
+    "min-width": 400,
+    "max-width": 400,
+    "min-height": 520,
+    "max-height": 520,
+    "toolbar": false,
+    "frame": true
+  }
+}

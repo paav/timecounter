@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="timeCounter">
+<head>
+  <title>Time Counter</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <div class="container" ng-controller="MainCtrl as ctrl">
+    <div class="row">
+      <div class="col-xs-8">
+        <form name="timer" class="form-horizontal">
+          <div class="form-group">
+            <label for="taskDesc" class="col-xs-2 control-label">Task</label>
+            <div class="col-xs-10">
+              <input type="text" name="taskDesc" ng-model="taskDesc" required
+                     ng-class="{'form-control': true}" required>
+              <div ng-show="timer.taskDesc.$error.required"
+                   class="alert alert-danger alert-dismissable mt6px">
+                  Task description is required.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="timerDisplay" class="col-xs-2 control-label">Time</label>
+            <div class="col-xs-10">
+              <input type="text" name="timerDisplay"
+                     ng-readonly="true"
+                     ng-class="{'form-control': true, 'timer-display': true}"
+                     ng-model="timeOnClock" required>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-xs-4">
+        <button type="button"
+                ng-show="!clockIsRunning"
+                ng-click="start()"
+                class="btn btn-block btn-default btn-timer btn-success">Start</button>
+        <button type="button"
+                ng-show="clockIsRunning"
+                ng-click="stop()"
+                class="btn btn-block btn-default btn-timer btn-danger">Stop</button>
+      </div>
+    </div>
+
+    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"
+              aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>TIP:</strong> Press start button and wait for 10 seconds without 
+        any activity. Then move mouse or press any key to see modal window.
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="col-xs-8">Task Description
+          <th class="col-xs-4">Elapsed Time
+      <tbody class="history">
+        <tr class="history-item-template">
+          <td class="col-xs-8 history-item-desc">
+          <td class="col-xs-4 history-item-time">
+    </table>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Idle time</h4>
+          </div>
+          <div class="modal-body">
+            There has been no activity for last <b>{{ctrl.lastIdle}}</b> 
+             (hours:minutes:seconds). Count this time?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    data-dismiss="modal">Yes</button>
+            <button type="button" class="btn btn-default"
+                    ng-click="dropIdle()">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
